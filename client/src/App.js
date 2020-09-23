@@ -1,6 +1,6 @@
 import React from 'react';
 import io from 'socket.io-client';
-import uniqueId from 'lodash.uniqueid';
+import { v4 as uuidv4 } from 'uuid';
 
 class App extends React.Component {
   constructor() {
@@ -27,10 +27,10 @@ class App extends React.Component {
   }
 
   addTask(task) {
-    this.uniqueId = uniqueId;
-
+    // this.uniqueId = uniqueId;
+    console.log(task);
     this.setState({
-      tasks: [...this.state.tasks, { id: uniqueId(), name: task }],
+      tasks: [...this.state.tasks, task], //eslint-disable-line
     });
     this.setState({ taskName: `` });
     // this.setState({ tasks: task })
@@ -48,7 +48,10 @@ class App extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.addTask(this.state.taskName);
-    this.socket.emit('addTask', this.state.taskName);
+    const id = uuidv4();
+    const task = { id, name: this.state.taskName };
+    this.addTask(task);
+    this.socket.emit('addTask', task);
   }
 
   render() {

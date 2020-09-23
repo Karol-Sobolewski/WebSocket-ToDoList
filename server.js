@@ -23,12 +23,15 @@ app.use((req, res) => {
 const io = socket(server);
 
 io.on('connection', (socket) => { // eslint-disable-line
-  socket.on('updateData', () => {
-    socket.emit('updateData', tasks);
-  });
+  /* socket.on('updateData', () => {
+    
+  }); */
+  socket.emit('updateData', tasks);
+
   socket.on('addTask', (task) => {
     tasks.push(task);
     socket.broadcast.emit('addTask', task);
+    console.log(task);
   });
   socket.on('removeTask', (taskIndex) => {
     const removedTask = tasks.filter((task) => task.id === taskIndex)[0];
