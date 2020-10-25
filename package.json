@@ -10,7 +10,7 @@
         "nodemon": "^2.0.4",
         "path": "^0.12.7",
         "socket.io": "2.2.0",
-        "uuid": "^8.3.0"
+        "uuid": "^8.3.1"
     },
     "scripts": {
         "start": "nodemon server.js"
